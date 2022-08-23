@@ -53,11 +53,11 @@ func NewAzureRMLinuxVirtualMachine(d *schema.ResourceData, u *schema.UsageData) 
 func linuxVirtualMachineCostComponent(region string, instanceType string, monthlyHours *float64) *schema.CostComponent {
 	purchaseOption := "Consumption"
 	purchaseOptionLabel := "pay as you go"
-
+	
 	productNameRe := "/Virtual Machines .* Series$/"
-	if strings.HasPrefix(instanceType, "Basic_") {
+	if strings.HasPrefix(instanceType, "Basic_")  || strings.HasPrefix(instanceType, "basic_") {
 		productNameRe = "/Virtual Machines .* Series Basic$/"
-	} else if !strings.HasPrefix(instanceType, "Standard_") {
+	} else if !strings.HasPrefix(instanceType, "Standard_") && !strings.HasPrefix(instanceType, "standard_") {
 		instanceType = fmt.Sprintf("Standard_%s", instanceType)
 	}
 
